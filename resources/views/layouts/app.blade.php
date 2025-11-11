@@ -22,7 +22,7 @@
 <body class="bg-gray-50 font-sans antialiased">
 
     <!-- 🔵 Navbar Melayang -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 bg-cyan-500 text-white shadow-md z-50 navbar-visible">
+    <nav id="navbar" class="fixed top-0 left-0 right-0 bg-cyan-500/40 text-white shadow-md z-50 navbar-visible">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-23">
                 <!-- Logo -->
@@ -60,13 +60,13 @@
 
     <!-- Konten -->
 
-    <main class="pt-23 pb-10">
+    <main class=" pb-10">
         @yield('content')
     </main>
 
     <!-- Footer -->
     <footer class="bg-gray-100 text-center text-sm text-gray-500 py-4 mt-10">
-        © {{ date('Y') }} LAPOR! — Layanan Aspirasi dan Pengaduan Online Rakyat
+        © {{ date('Y') }} 
     </footer>
 
     <script>
