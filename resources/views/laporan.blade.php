@@ -24,7 +24,7 @@
       Layanan Aspirasi dan Pengaduan Online Rakyat
     </h1>
     <p class="mt-4 text-lg md:text-xl text-gray-100 drop-shadow">
-      Sampaikan laporan Anda langsung kepada instansi pemerintah berwenang
+      Sampaikan laporan Anda langsung kepada instansi Kami
     </p>
     <div class="w-24 h-1 bg-white mx-auto mt-6 rounded-full"></div>
 
@@ -46,17 +46,17 @@
 </section>
 
 
-{{-- 💠 FORM SECTION dengan efek NG (neon glow) --}}
+{{-- 💠 FORM SECTION --}}
 <section 
   id="formSection" 
   class="relative py-24 bg-linear-to-b from-cyan-100 via-white to-cyan-50 scroll-mt-24 overflow-hidden"
 >
-  {{-- Pola dots lembut di background --}}
+  {{-- Pola dots lembut --}}
   <div 
     class="absolute inset-0 opacity-30 bg-[radial-linear(circle_at_1px_1px,_#a5f3fc_1px, transparent_1px)] [bg-size:22px_22px]"
   ></div>
 
-  {{-- Efek neon glow cyan + pink di belakang form --}}
+  {{-- Efek neon glow --}}
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
     <div class="w-[600px] h-[600px] bg-cyan-300/30 blur-[130px] rounded-full absolute -top-40 -left-60 animate-pulse-slow"></div>
     <div class="w-[550px] h-[550px] bg-pink-300/30 blur-[150px] rounded-full absolute top-20 right-0 animate-pulse-slow delay-500"></div>
@@ -89,13 +89,6 @@
       </button>
     </div>
 
-    {{-- Flash message --}}
-    @if(session('success'))
-      <div class="p-3 bg-green-100 text-green-800 rounded mb-4 text-center font-medium shadow-md">
-        {{ session('success') }}
-      </div>
-    @endif
-
     {{-- Tab contents --}}
     <div x-show="tab==='pengaduan'" x-cloak>
       @include('partials.pengaduan')
@@ -111,10 +104,30 @@
   </div>
 </section>
 
-{{-- Smooth scroll + animasi tambahan --}}
+{{-- ✅ FLASH POPUP --}}
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+      icon: 'success',
+      title: 'Berhasil!',
+      text: '{{ session('success') }}',
+      confirmButtonColor: '#06b6d4',
+      confirmButtonText: 'OK',
+    }).then(() => {
+      // Reload tapi tidak scroll ke atas
+      const scrollPos = window.scrollY;
+      location.reload();
+      setTimeout(() => window.scrollTo(0, scrollPos), 100);
+    });
+  });
+</script>
+@endif
+
+{{-- Smooth scroll --}}
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Smooth scroll ke form section
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -131,19 +144,13 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(6px); }
   }
-  .animate-bounce-slow {
-    animation: bounce-slow 1.8s infinite;
-  }
+  .animate-bounce-slow { animation: bounce-slow 1.8s infinite; }
 
   @keyframes pulse-slow {
     0%, 100% { opacity: 0.4; transform: scale(1); }
     50% { opacity: 0.7; transform: scale(1.05); }
   }
-  .animate-pulse-slow {
-    animation: pulse-slow 6s ease-in-out infinite;
-  }
-  .delay-500 {
-    animation-delay: 3s;
-  }
+  .animate-pulse-slow { animation: pulse-slow 6s ease-in-out infinite; }
+  .delay-500 { animation-delay: 3s; }
 </style>
 @endsection

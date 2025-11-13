@@ -10,10 +10,15 @@ class AdminController extends Controller
 {
     public function index()
     {
+
+        $totalAspirasi = Aspirasi::count();
+        $totalPengaduan = Pengaduan::count();
+        $totalPermintaan = Permintaan::count();
+
         return view('admin.dashboard', [
-            'aspirasis' => Aspirasi::latest()->get(),
-            'pengaduans' => Pengaduan::latest()->get(),
-            'permintaans' => Permintaan::latest()->get(),
+            'totalAspirasi' => $totalAspirasi,
+            'totalPengaduan' => $totalPengaduan,
+            'totalPermintaan' => $totalPermintaan
         ]);
     }
 }
