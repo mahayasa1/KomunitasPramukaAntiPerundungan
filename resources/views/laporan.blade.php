@@ -24,7 +24,7 @@
       Layanan Aspirasi dan Pengaduan Online Rakyat
     </h1>
     <p class="mt-4 text-lg md:text-xl text-gray-100 drop-shadow">
-      Sampaikan laporan Anda langsung kepada instansi Kami
+      Sampaikan laporan Anda langsung kepada Kami
     </p>
     <div class="w-24 h-1 bg-white mx-auto mt-6 rounded-full"></div>
 
