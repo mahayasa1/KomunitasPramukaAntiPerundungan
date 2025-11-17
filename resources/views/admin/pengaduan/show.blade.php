@@ -55,6 +55,11 @@
       </p>
     </div>
 
+    <div>
+      <p class="font-semibold text-gray-900">Status:</p>
+      <p>{{ $pengaduan->status }} </p>
+    </div>
+
     <div class="md:col-span-2">
       <p class="font-semibold text-gray-900">Isi Pengaduan:</p>
       <p class="mt-1 whitespace-pre-line">{{ $pengaduan->isi ?? '-' }}</p>

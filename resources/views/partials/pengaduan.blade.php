@@ -2,7 +2,7 @@
     @csrf
 
     <div>
-        <label for="nama" class="block font-semibold text-gray-700">Nama <span class="text-red-900"><span class="text-red-900">*</span></span></label>
+        <label for="name" class="block font-semibold text-gray-700">Nama <span class="text-red-900"><span class="text-red-900">*</span></span></label>
         <input type="text" id="name" name="name" class="w-full border rounded px-3 py-2" required>
     </div>
 

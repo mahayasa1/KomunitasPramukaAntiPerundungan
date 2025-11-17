@@ -31,6 +31,11 @@ class AspirasiController extends Controller
         }
     }
 
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+
     // 🔹 Filter tanggal
     if ($request->filled('start_date')) {
         $query->whereDate('created_at', '>=', $request->start_date);
@@ -78,8 +83,30 @@ class AspirasiController extends Controller
 
         $validated['is_anonymous'] = $request->has('is_anonymous');
         $validated['is_secret'] = $request->has('is_secret');
+
+        $validated['status'] = 'pending';
         
         Aspirasi::create($validated);
         return back()->with('success', 'Aspirasi berhasil dikirim!');
+    }
+
+    
+    public function nextStatus($id)
+    {
+        $pengaduan = Aspirasi::findOrFail($id);
+    
+        // urutan status
+        $steps = ['pending', 'verification', 'follow-up', 'feedback', 'finish'];
+    
+        // cari posisi sekarang
+        $currentIndex = array_search($pengaduan->status, $steps);
+    
+        // jika belum finish → naik 1 level
+        if ($currentIndex !== false && $currentIndex < count($steps) - 1) {
+            $pengaduan->status = $steps[$currentIndex + 1];
+            $pengaduan->save();
+        }
+    
+        return redirect()->back()->with('success', 'Status berhasil diperbarui!');
     }
 }

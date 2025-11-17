@@ -50,6 +50,11 @@
       </p>
     </div>
 
+    <div>
+      <p class="font-semibold text-gray-900">Status:</p>
+      <p>{{ $aspirasi->status }} </p>
+    </div>
+
     <div class="md:col-span-2">
       <p class="font-semibold text-gray-900">Isi Aspirasi:</p>
       <p class="mt-1 whitespace-pre-line">{{ $aspirasi->isi ?? '-' }}</p>

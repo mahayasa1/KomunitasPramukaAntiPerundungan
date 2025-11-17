@@ -37,8 +37,9 @@
                         </div>
                     </a>
                     <div class="hidden md:flex space-x-6">
-                        <a href="" class="hover:text-gray-200 text-sm font-semibold">TENTANG</a>
-                        <a href="" class="hover:text-gray-200 text-sm font-semibold">SEJARAH</a>
+                        <a href="{{ route('about') }}" class="hover:text-gray-200 text-sm font-semibold">TENTANG</a>
+                        <a href="{{ route('sejarah') }}" class="hover:text-gray-200 text-sm font-semibold">SEJARAH</a>
+                        <a href="{{ route('search.index') }}" class="hover:text-gray-200 text-sm font-semibold">CARI</a>
                     </div>
                 </div>
 
@@ -67,7 +68,7 @@
 
     <!-- Footer -->
     <footer class="bg-gray-100 text-center text-sm text-gray-500 py-4 mt-10">
-        © {{ date('Y') }} 
+      Developed By SKYNUSA TECH  © {{ date('Y') }} 
     </footer>
 
     <script>

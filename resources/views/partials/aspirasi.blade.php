@@ -38,7 +38,7 @@
 
     <div>
         <label for="lampiran" class="block font-semibold text-gray-700">Lampiran (Opsional, Max 20MB)</label>
-        <input type="file" id="lampiran" accept="pdf" name="lampiran" class="w-full border rounded px-3 py-2">
+        <input type="file" id="lampiran" accept=".pdf" name="lampiran" class="w-full border rounded px-3 py-2">
     </div>
 
     <div class="flex items-center space-x-4">

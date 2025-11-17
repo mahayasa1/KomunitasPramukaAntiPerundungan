@@ -7,6 +7,7 @@ use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\PermintaanController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,14 @@ use App\Http\Controllers\LaporanController;
 
 // Halaman utama menampilkan laporan publik
 Route::get('/', [LaporanController::class, 'index'])->name('index');
+
+Route::view('/about', 'about')->name('about');
+Route::view('/sejarah', 'sejarah')->name('sejarah');
+
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+Route::post('/search', [SearchController::class, 'find'])->name('search.find');
+Route::get('/search/detail/{type}/{id}', [SearchController::class, 'detail'])->name('search.detail');
+
 
 // Form publik untuk mengirim data
 Route::post('/aspirasi/store', [AspirasiController::class, 'store'])->name('aspirasi.store');
@@ -46,7 +55,19 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
     // CRUD Admin
+    // Aspirasi
     Route::resource('aspirasi', AspirasiController::class)->except(['store']);
+    Route::post('/admin/aspirasi/{id}/next-status', [AspirasiController::class, 'nextStatus'])
+    ->name('aspirasi.nextStatus');
+    
+    // Pengaduan
     Route::resource('pengaduan', PengaduanController::class)->except(['store']);
+    Route::post('/admin/pengaduan/{id}/next-status', [PengaduanController::class, 'nextStatus'])
+    ->name('pengaduan.nextStatus');
+
+
+    // Permintaan
     Route::resource('permintaan', PermintaanController::class)->except(['store']);
+    Route::post('/admin/permintaan/{id}/next-status', [PermintaanController::class, 'nextStatus'])
+    ->name('permintaan.nextStatus');
 });

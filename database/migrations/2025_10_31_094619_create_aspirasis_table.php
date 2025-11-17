@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('lampiran')->nullable();
             $table->boolean('is_anonymous')->default(false);
             $table->boolean('is_secret')->default(false);
+            $table->enum('status', ['pending', 'verification', 'follow-up', 'feedback',  'finish'])->default('pending');
             $table->timestamps();
         });
     }

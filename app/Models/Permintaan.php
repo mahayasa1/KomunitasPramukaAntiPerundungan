@@ -20,5 +20,6 @@ class Permintaan extends Model
         'lampiran',
         'is_anonymous',
         'is_secret',
+        'status',
     ];
 }

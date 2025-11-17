@@ -30,6 +30,11 @@ class PermintaanController extends Controller
         }
     }
 
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+
     // 🔹 Filter tanggal
     if ($request->filled('start_date')) {
         $query->whereDate('created_at', '>=', $request->start_date);
@@ -72,8 +77,10 @@ class PermintaanController extends Controller
         $validated['lampiran'] = 'uploads/lampiran/' . $fileName;
     }
     
-$validated['is_anonymous'] = $request->has('is_anonymous');
-$validated['is_secret'] = $request->has('is_secret');
+        $validated['is_anonymous'] = $request->has('is_anonymous');
+        $validated['is_secret'] = $request->has('is_secret');
+
+        $validated['status'] = 'pending';
 
 
         Permintaan::create($validated);
@@ -81,4 +88,22 @@ $validated['is_secret'] = $request->has('is_secret');
     }
 
     
+    public function nextStatus($id)
+    {
+        $pengaduan = Permintaan::findOrFail($id);
+    
+        // urutan status
+        $steps = ['pending', 'verification', 'follow-up', 'feedback', 'finish'];
+    
+        // cari posisi sekarang
+        $currentIndex = array_search($pengaduan->status, $steps);
+    
+        // jika belum finish → naik 1 level
+        if ($currentIndex !== false && $currentIndex < count($steps) - 1) {
+            $pengaduan->status = $steps[$currentIndex + 1];
+            $pengaduan->save();
+        }
+    
+        return redirect()->back()->with('success', 'Status berhasil diperbarui!');
+    }    
 }

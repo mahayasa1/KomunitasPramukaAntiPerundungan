@@ -20,5 +20,6 @@ class Aspirasi extends Model
         'lampiran',
         'is_anonymous',
         'is_secret',
+        'status',
     ];
 }
