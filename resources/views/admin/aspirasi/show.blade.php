@@ -63,18 +63,30 @@
     @if($aspirasi->lampiran)
       <div class="md:col-span-2">
         <p class="font-semibold mb-3 text-gray-900">Lampiran:</p>
-        <a href="{{ asset($aspirasi->lampiran) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg ">
-          Lihat Lampiran
+        <a href="{{ asset($aspirasi->lampiran) }}" target="_blank" class=" hover:bg-gray-500 text-gray-900 hover:text-white px-4 py-2 rounded-lg ">
+          <i class="fa-solid fa-paperclip mr-2"></i> <span> Lihat Lampiran </span>
         </a>
       </div>
     @endif
   </div>
 
-  <div class="mt-8 text-right">
+  <div class="mt-8 flex justify-between">
+
+    {{-- Tombol Update Status --}}
+    <form action="{{ route('admin.aspirasi.updateStatus', $aspirasi->id) }}" method="POST">
+        @csrf
+        <button type="submit"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow">
+          <i class="fa-solid fa-circle-arrow-up mr-2"></i> <span> Update Status </span>
+        </button>
+    </form>
+
+    {{-- Kembali ke index --}}
     <a href="{{ route('admin.aspirasi.index') }}" 
        class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg">
-      ← Kembali
+      <i class="fa-solid fa-arrow-left mr-2"></i> Kembali
     </a>
-  </div>
+
+</div>
 </div>
 @endsection

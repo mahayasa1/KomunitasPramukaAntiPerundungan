@@ -93,23 +93,22 @@ class PengaduanController extends Controller
         return redirect()->back()->with('success', 'Laporan berhasil dikirim!');
     }
 
-    public function nextStatus($id)
+     public function updateStatusFromDetail($id)
     {
-        $pengaduan = Pengaduan::findOrFail($id);
+        $aspirasi = Pengaduan::findOrFail($id);
     
-        // urutan status
         $steps = ['pending', 'verification', 'follow-up', 'feedback', 'finish'];
     
-        // cari posisi sekarang
-        $currentIndex = array_search($pengaduan->status, $steps);
+        $currentIndex = array_search($aspirasi->status, $steps);
     
-        // jika belum finish → naik 1 level
         if ($currentIndex !== false && $currentIndex < count($steps) - 1) {
-            $pengaduan->status = $steps[$currentIndex + 1];
-            $pengaduan->save();
+            $aspirasi->status = $steps[$currentIndex + 1];
+            $aspirasi->save();
         }
     
-        return redirect()->back()->with('success', 'Status berhasil diperbarui!');
+        return redirect()
+            ->route('admin.aspirasi.index')
+            ->with('success', 'Status aspirasi berhasil diperbarui!');
     }
 
 }

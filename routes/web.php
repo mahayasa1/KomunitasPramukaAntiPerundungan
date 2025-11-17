@@ -57,17 +57,18 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // CRUD Admin
     // Aspirasi
     Route::resource('aspirasi', AspirasiController::class)->except(['store']);
-    Route::post('/admin/aspirasi/{id}/next-status', [AspirasiController::class, 'nextStatus'])
-    ->name('aspirasi.nextStatus');
+    Route::post('/admin/aspirasi/{id}/update-status', [AspirasiController::class, 'updateStatusFromDetail'])
+    ->name('aspirasi.updateStatus');
+
     
     // Pengaduan
     Route::resource('pengaduan', PengaduanController::class)->except(['store']);
-    Route::post('/admin/pengaduan/{id}/next-status', [PengaduanController::class, 'nextStatus'])
-    ->name('pengaduan.nextStatus');
+    Route::post('/admin/pengaduan/{id}/update-status', [PengaduanController::class, 'updateStatus'])
+    ->name('pengaduan.updateStatus');
 
 
     // Permintaan
     Route::resource('permintaan', PermintaanController::class)->except(['store']);
-    Route::post('/admin/permintaan/{id}/next-status', [PermintaanController::class, 'nextStatus'])
-    ->name('permintaan.nextStatus');
+    Route::post('/admin/permintaan/{id}/update-status', [PermintaanController::class, 'updateStatus'])
+    ->name('permintaan.updateStatus');
 });

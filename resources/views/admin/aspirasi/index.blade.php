@@ -123,15 +123,6 @@
                 <i class="fa-solid fa-pen-to-square"></i><span>Edit</span>
             </a>
           
-            {{-- UPDATE STATUS --}}
-            <form action="{{ route('admin.aspirasi.nextStatus', $item->id) }}" method="POST">
-                @csrf
-                <button type="submit"
-                    class="flex items-center gap-2 w-full text-left px-4 py-3 text-gray-700 font-medium hover:bg-indigo-500 hover:text-white transition">
-                    <i class="fa-solid fa-circle-up"></i><span>Update Status</span>
-                </button>
-            </form>
-          
             {{-- HAPUS --}}
             <form action="{{ route('admin.aspirasi.destroy', $item->id) }}" method="POST"
                   onsubmit="return confirm('Yakin ingin menghapus data ini?')">
