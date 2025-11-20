@@ -90,19 +90,19 @@ class PermintaanController extends Controller
     
      public function updateStatusFromDetail($id)
     {
-        $aspirasi = Permintaan::findOrFail($id);
+        $permintaan = Permintaan::findOrFail($id);
     
         $steps = ['pending', 'verification', 'follow-up', 'feedback', 'finish'];
     
-        $currentIndex = array_search($aspirasi->status, $steps);
+        $currentIndex = array_search($permintaan->status, $steps);
     
         if ($currentIndex !== false && $currentIndex < count($steps) - 1) {
-            $aspirasi->status = $steps[$currentIndex + 1];
-            $aspirasi->save();
+            $permintaan->status = $steps[$currentIndex + 1];
+            $permintaan->save();
         }
     
         return redirect()
-            ->route('admin.aspirasi.index')
-            ->with('success', 'Status aspirasi berhasil diperbarui!');
+            ->route('admin.permintaan.index')
+            ->with('success', 'Status permintaan berhasil diperbarui!');
     }
 }

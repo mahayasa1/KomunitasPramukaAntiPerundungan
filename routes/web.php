@@ -63,12 +63,12 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     
     // Pengaduan
     Route::resource('pengaduan', PengaduanController::class)->except(['store']);
-    Route::post('/admin/pengaduan/{id}/update-status', [PengaduanController::class, 'updateStatus'])
+    Route::post('/admin/pengaduan/{id}/update-status', [PengaduanController::class, 'updateStatusFromDetail'])
     ->name('pengaduan.updateStatus');
 
 
     // Permintaan
     Route::resource('permintaan', PermintaanController::class)->except(['store']);
-    Route::post('/admin/permintaan/{id}/update-status', [PermintaanController::class, 'updateStatus'])
+    Route::post('/admin/permintaan/{id}/update-status', [PermintaanController::class, 'updateStatusFromDetail'])
     ->name('permintaan.updateStatus');
 });
