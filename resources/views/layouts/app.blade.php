@@ -45,15 +45,8 @@
 
                 <!-- Tombol kanan -->
                 <div class="flex items-center space-x-4">
-                    <a href="{{ route('login') }}" class="text-sm font-semibold hover:text-gray-200 flex items-center space-x-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m12 0l-3-3m3 3l-3 3m6-6v6m0 0a9 9 0 11-9-9"/>
-                        </svg>
+                    <a href="{{ route('login') }}" class="border border-white text-sm font-semibold px-4 py-1 rounded hover:bg-white hover:text-cyan-500 transition">
                         <span>MASUK</span>
-                    </a>
-
-                    <a href="{{ route('register') }}" class="border border-white text-sm font-semibold px-4 py-1 rounded hover:bg-white hover:text-cyan-500 transition">
-                        DAFTAR
                     </a>
                 </div>
             </div>
