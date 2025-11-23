@@ -87,6 +87,12 @@ class PermintaanController extends Controller
         return back()->with('success', 'Permintaan informasi berhasil dikirim!');
     }
 
+    public function destroy($id)
+    {
+        Permintaan::findOrFail($id)->delete();
+        return back()->with('success', 'Permintaan berhasil dihapus');
+    }
+
     
      public function updateStatusFromDetail($id)
     {

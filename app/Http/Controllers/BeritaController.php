@@ -8,11 +8,38 @@ use Illuminate\Support\Str;
 
 class BeritaController extends Controller
 {
-    public function index()
-    {
-        $berita = Berita::latest()->paginate(10);
-        return view('admin.berita.index', compact('berita'));
+    public function index(Request $request)
+{
+    // ambil semua input filter
+    $keyword     = $request->keyword;
+    $start_date  = $request->start_date;
+    $end_date    = $request->end_date;
+    $kategori    = $request->kategori;
+
+    // query dasar
+    $query = Berita::query();
+
+    // Filter: Keyword judul
+    if (!empty($keyword)) {
+        $query->where('title', 'LIKE', "%{$keyword}%");
     }
+
+    // Filter: Tanggal Awal
+    if (!empty($start_date)) {
+        $query->whereDate('created_at', '>=', $start_date);
+    }
+
+    // Filter: Tanggal Akhir
+    if (!empty($end_date)) {
+        $query->whereDate('created_at', '<=', $end_date);
+    }
+
+    // Pagination
+    $berita = $query->latest()->paginate(10)->appends($request->all());
+
+    return view('admin.berita.index', compact('berita'));
+}
+
 
     public function create()
     {

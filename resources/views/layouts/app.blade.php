@@ -36,13 +36,33 @@
                             <span class="text-lg font-bold tracking-wide m-0">ANTI PERUNDUNGAN</span>
                         </div>
                     </a>
-                    <div class="hidden md:flex space-x-6">
-                        <a href="{{ route('about') }}" class="hover:text-gray-200 text-sm font-semibold">TENTANG</a>
-                        <a href="{{ route('sejarah') }}" class="hover:text-gray-200 text-sm font-semibold">SEJARAH</a>
-                        <a href="{{ route('search.index') }}" class="hover:text-gray-200 text-sm font-semibold">CARI</a>
-                        <a href="{{ route('berita.index') }}" class="hover:text-gray-200 text-sm font-semibold">BERITA</a>
-                    </div>
+                <div class="hidden md:flex space-x-2">
+                    <a href="{{ route('about') }}"
+                        class="text-sm font-semibold px-3 py-1 rounded
+                                {{ Request::routeIs('about') ? 'bg-cyan-500 text-white' : 'hover:text-gray-200 text-white' }}">
+                        TENTANG
+                    </a>
+                
+                    <a href="{{ route('sejarah') }}"
+                        class="text-sm font-semibold px-3 py-1 rounded
+                                {{ Request::routeIs('sejarah') ? 'bg-cyan-500 text-white' : 'hover:text-gray-200 text-white' }}">
+                        SEJARAH
+                    </a>
+                
+                    <a href="{{ route('search.index') }}"
+                        class="text-sm font-semibold px-3 py-1 rounded
+                                {{ Request::routeIs('search.index') ? 'bg-cyan-500 text-white' : 'hover:text-gray-200 text-white' }}">
+                        CARI
+                    </a>
+                
+                    <a href="{{ route('berita.index') }}"
+                        class="text-sm font-semibold px-3 py-1 rounded
+                                {{ Request::routeIs('berita.index') ? 'bg-cyan-500 text-white' : 'hover:text-gray-200 text-white' }}">
+                        BERITA
+                    </a>
+                
                 </div>
+            </div>
 
                 <!-- Tombol kanan -->
                 <div class="flex items-center space-x-4">

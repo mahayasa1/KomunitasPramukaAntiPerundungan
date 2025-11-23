@@ -3,7 +3,7 @@
 @section('title', 'Data Aspirasi')
 
 @section('content')
-<div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-blue-500">
+<div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-blue-500 mb-6">
 
   {{-- 🔹 Filter Form --}}
  <form method="GET" action="{{ route('admin.aspirasi.index') }}" class="mb-6">
@@ -56,7 +56,6 @@
         </select>
       </div>
     </div>
-
     <div class="mt-4 flex justify-end space-x-2">
       <button type="submit"
               class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
@@ -68,6 +67,9 @@
       </a>
     </div>
   </form>
+</div>
+
+<div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-blue-500">
   {{-- 🔹 Table --}}
   <div class="overflow-x-auto">
     <table class="min-w-full text-sm text-gray-700 border-collapse">

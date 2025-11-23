@@ -93,6 +93,12 @@ class PengaduanController extends Controller
         return redirect()->back()->with('success', 'Laporan berhasil dikirim!');
     }
 
+    public function destroy($id)
+    {
+        Pengaduan::findOrFail($id)->delete();
+        return back()->with('success', 'Pengaduan berhasil dihapus');
+    }
+
      public function updateStatusFromDetail($id)
     {
         $pengaduan = Pengaduan::findOrFail($id);

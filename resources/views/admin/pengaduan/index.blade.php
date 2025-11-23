@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-red-500">
+<div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-red-500 mb-6">
 
   {{-- FILTER FORM --}}
   <form method="GET" action="{{ route('admin.pengaduan.index') }}" class="mb-6">
@@ -72,9 +72,10 @@
       </a>
     </div>
   </form>
+  </div>
 
-  {{-- TABLE WRAPPER --}}
-  <div class="relative">
+  <div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-red-500">
+    <div class="relative">
 
     <div class="overflow-x-auto">
       <table class="min-w-full text-sm text-gray-700 border-collapse">
@@ -162,6 +163,7 @@
 
   </div>
 </div>
+
 
 @endsection
 

@@ -4,7 +4,7 @@
 
 @section('content')
 
-  <div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-green-500">
+  <div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-green-500 mb-6">
     <form method="GET" action="{{ route('admin.permintaan.index') }}" class="mb-6">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
 
@@ -67,6 +67,9 @@
       </a>
     </div>
   </form>
+</div>
+
+<div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-green-500">
     <div class="overflow-x-auto">
       <table class="min-w-full text-sm text-gray-700 border-collapse">
         <thead>

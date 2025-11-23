@@ -90,6 +90,12 @@ class AspirasiController extends Controller
         return back()->with('success', 'Aspirasi berhasil dikirim!');
     }
 
+    public function destroy($id)
+    {
+        Aspirasi::findOrFail($id)->delete();
+        return back()->with('success', 'Aspirasi berhasil dihapus');
+    }
+
     
     public function updateStatusFromDetail($id)
     {
