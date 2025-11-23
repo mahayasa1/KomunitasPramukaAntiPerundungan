@@ -6,6 +6,8 @@
   <title>@yield('title') - Admin</title>
   <script src="https://kit.fontawesome.com/5b5e103a5b.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link rel="stylesheet" href="https://unpkg.com/trix/dist/trix.css">
+  <script src="https://unpkg.com/trix/dist/trix.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   @vite('resources/css/app.css')
 </head>
@@ -41,23 +43,29 @@
         { icon: 'fa-comments', text: 'Data Aspirasi', link: '{{ route('admin.aspirasi.index') }}' },
         { icon: 'fa-triangle-exclamation', text: 'Data Pengaduan', link: '{{ route('admin.pengaduan.index') }}' },
         { icon: 'fa-bullhorn', text: 'Data Permintaan', link: '{{ route('admin.permintaan.index') }}' },
+        { icon: 'fa-newspaper', text: 'Data Berita', link: '{{ route('admin.berita.index') }}' },
       ]" :key="item.text">
         <a :href="item.link"
-           class="group relative flex items-center gap-3 py-2 px-3 rounded font-semibold transition transform hover:scale-[1.05] hover:bg-cyan-500 hover:shadow-lg">
+          class="group relative flex items-center gap-3 py-2 px-3 rounded font-semibold transition transform hover:scale-[1.05] hover:bg-cyan-500 hover:shadow-lg">
+          
           <i :class="'fa-solid ' + item.icon + ' w-5 text-center'"></i>
+          
           <span class="transition-all duration-300 whitespace-nowrap"
                 :class="sidebarOpen ? 'opacity-100 ml-1' : 'opacity-0 hidden'">
             <span x-text="item.text"></span>
           </span>
-
-          {{-- Tooltip muncul saat sidebar tertutup --}}
+        
+          <!-- Tooltip ketika sidebar tertutup -->
           <span 
             x-show="!sidebarOpen"
+            x-transition
             x-text="item.text"
-            class="absolute left-full ml-2 px-2 py-1 text-sm bg-cyan-700 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none transition-all duration-300">
+            class="absolute left-full ml-2 px-2 py-1 text-sm bg-cyan-700 rounded shadow-lg opacity-0 group-hover:opacity-100 whitespace-nowrap">
           </span>
+        
         </a>
       </template>
+
     </nav>
 
     {{-- 🔸 LOGOUT --}}
@@ -93,6 +101,21 @@
       @yield('content')
     </div>
   </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('welcome'))
+<script>
+    Swal.fire({
+        title: "Welcome Admin {{ auth()->user()->name }}!",
+        text: "{{ session('welcome') }}",
+        icon: "success",
+        timer: 2500,
+        showConfirmButton: false
+    });
+</script>
+@endif
+
 
 </body>
 </html>

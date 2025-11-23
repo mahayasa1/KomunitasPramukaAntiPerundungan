@@ -40,6 +40,7 @@
                         <a href="{{ route('about') }}" class="hover:text-gray-200 text-sm font-semibold">TENTANG</a>
                         <a href="{{ route('sejarah') }}" class="hover:text-gray-200 text-sm font-semibold">SEJARAH</a>
                         <a href="{{ route('search.index') }}" class="hover:text-gray-200 text-sm font-semibold">CARI</a>
+                        <a href="{{ route('berita.index') }}" class="hover:text-gray-200 text-sm font-semibold">BERITA</a>
                     </div>
                 </div>
 
@@ -60,9 +61,13 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-100 text-center text-sm text-gray-500 py-4 mt-10">
-      Developed By SKYNUSA TECH  © {{ date('Y') }} 
-    </footer>
+    <footer class="bg-gray-100 text-sm text-gray-500 py-4 mt-10">
+    <div class="flex items-center justify-center gap-2 px-4">
+        <img src="{{ asset('asset/logo.png') }}" class="w-55 h-8" alt="">
+        <span>Developed By SKYNUSA TECH © {{ date('Y') }}</span>
+    </div>
+</footer>
+
 
     <script>
         let lastScrollTop = 0;

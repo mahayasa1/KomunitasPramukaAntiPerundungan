@@ -42,8 +42,13 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->route('admin.dashboard');
-        }
+            $request->session()->regenerate();
+
+        // Tambahkan session popup
+        session()->flash('welcome', 'Senang bertemu kembali!');
+
+        return redirect()->route('admin.dashboard');
+    }
         return back()->with('error', 'Email atau password salah.');
     }
 

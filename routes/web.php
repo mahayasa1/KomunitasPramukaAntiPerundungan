@@ -6,9 +6,9 @@ use App\Http\Controllers\AspirasiController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\PermintaanController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\SearchController;
-
 /*
 |--------------------------------------------------------------------------
 | Public Routes
@@ -20,6 +20,13 @@ Route::get('/', [LaporanController::class, 'index'])->name('index');
 
 Route::view('/about', 'about')->name('about');
 Route::view('/sejarah', 'sejarah')->name('sejarah');
+
+// List Berita untuk user
+Route::get('/berita', [BeritaController::class, 'userIndex'])->name('berita.index');
+
+// Detail berita
+Route::get('/berita/{slug}', [BeritaController::class, 'userShow'])->name('berita.show');
+
 
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 Route::post('/search', [SearchController::class, 'find'])->name('search.find');
@@ -51,24 +58,28 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Redirect /admin ke dashboard
     Route::redirect('/', '/admin/dashboard');
 
+    // Berita
+    Route::resource('berita', BeritaController::class)->except(['show']);
+    Route::post('/ckeditor/upload', [BeritaController::class, 'ckeditorUpload'])->name('ckeditor.upload');
+
     // Dashboard utama admin
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
     // CRUD Admin
     // Aspirasi
     Route::resource('aspirasi', AspirasiController::class)->except(['store']);
-    Route::post('/admin/aspirasi/{id}/update-status', [AspirasiController::class, 'updateStatusFromDetail'])
+    Route::post('/aspirasi/{id}/update-status', [AspirasiController::class, 'updateStatusFromDetail'])
     ->name('aspirasi.updateStatus');
 
     
     // Pengaduan
     Route::resource('pengaduan', PengaduanController::class)->except(['store']);
-    Route::post('/admin/pengaduan/{id}/update-status', [PengaduanController::class, 'updateStatusFromDetail'])
+    Route::post('/pengaduan/{id}/update-status', [PengaduanController::class, 'updateStatusFromDetail'])
     ->name('pengaduan.updateStatus');
 
 
     // Permintaan
     Route::resource('permintaan', PermintaanController::class)->except(['store']);
-    Route::post('/admin/permintaan/{id}/update-status', [PermintaanController::class, 'updateStatusFromDetail'])
+    Route::post('/permintaan/{id}/update-status', [PermintaanController::class, 'updateStatusFromDetail'])
     ->name('permintaan.updateStatus');
 });
