@@ -2,9 +2,11 @@
 
 @section('content')
 
-<div class="max-w-6xl mx-auto pt-30 pb-10">
+<div class="w-full h-23 bg-cyan-300 relative -z-10"></div>
 
-    <h1 class="text-3xl font-bold mb-6">Berita Terbaru</h1>
+<div class="max-w-6xl mx-auto pt-10 pb-10">
+
+    <h1 class="text-3xl font-bold text-cyan-600 mb-8 text-center">Berita Terbaru</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 

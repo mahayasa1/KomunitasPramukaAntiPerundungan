@@ -25,9 +25,9 @@
     <!-- 🔵 Navbar Melayang -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 bg-cyan-500/40 text-white shadow-md z-50 navbar-visible">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-23">
+            <div class="flex justify-between items-center h-23 w-full">
                 <!-- Logo -->
-            <div class="flex items-center space-x-8">
+            <div class="flex items-center space-x-8 shrink-0">
                     <a href="/" class="flex items-center space-x-3">
                         <!-- Ganti logo di sini -->
                         <img src="{{ asset('asset/IMG_4636.PNG') }}" alt="Logo Anti Perundungan" class="h-30 w-auto">
@@ -39,25 +39,25 @@
                 <div class="hidden md:flex space-x-2">
                     <a href="{{ route('about') }}"
                         class="text-sm font-semibold px-3 py-1 rounded
-                                {{ Request::routeIs('about') ? 'bg-cyan-500 text-white' : 'hover:text-gray-200 text-white' }}">
+                                {{ Request::routeIs('about') ? 'bg-cyan-300 text-white' : 'hover:text-gray-200 text-white' }}">
                         TENTANG
                     </a>
                 
                     <a href="{{ route('sejarah') }}"
                         class="text-sm font-semibold px-3 py-1 rounded
-                                {{ Request::routeIs('sejarah') ? 'bg-cyan-500 text-white' : 'hover:text-gray-200 text-white' }}">
+                                {{ Request::routeIs('sejarah') ? 'bg-cyan-300 text-white' : 'hover:text-gray-200 text-white' }}">
                         SEJARAH
                     </a>
                 
                     <a href="{{ route('search.index') }}"
                         class="text-sm font-semibold px-3 py-1 rounded
-                                {{ Request::routeIs('search.index') ? 'bg-cyan-500 text-white' : 'hover:text-gray-200 text-white' }}">
+                                {{ Request::routeIs('search.index') ? 'bg-cyan-300 text-white' : 'hover:text-gray-200 text-white' }}">
                         CARI
                     </a>
                 
                     <a href="{{ route('berita.index') }}"
                         class="text-sm font-semibold px-3 py-1 rounded
-                                {{ Request::routeIs('berita.index') ? 'bg-cyan-500 text-white' : 'hover:text-gray-200 text-white' }}">
+                                {{ Request::routeIs('berita.index') ? 'bg-cyan-300 text-white' : 'hover:text-gray-200 text-white' }}">
                         BERITA
                     </a>
                 
@@ -65,7 +65,7 @@
             </div>
 
                 <!-- Tombol kanan -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 shrink-0 ml-aut">
                     <a href="{{ route('login') }}" class="border border-white text-sm font-semibold px-4 py-1 rounded hover:bg-white hover:text-cyan-500 transition">
                         <span>MASUK</span>
                     </a>
@@ -88,26 +88,45 @@
     </div>
 </footer>
 
+<script>
+    let lastScrollTop = 0;
+    const navbar = document.getElementById('navbar');
 
-    <script>
-        let lastScrollTop = 0;
-        const navbar = document.getElementById('navbar');
+    function updateNavbarBackground() {
+        if (window.scrollY <= 5) {
+            // Di paling atas → transparan 40
+            navbar.classList.remove("bg-cyan-500");
+            navbar.classList.add("bg-cyan-500/40");
+        } else {
+            // Tidak di atas → solid 100
+            navbar.classList.remove("bg-cyan-500/40");
+            navbar.classList.add("bg-cyan-500");
+        }
+    }
 
-        window.addEventListener('scroll', function() {
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    // Set awal ketika page load
+    updateNavbarBackground();
 
-            if (currentScroll > lastScrollTop && currentScroll > 80) {
-                // Scroll ke bawah -> sembunyikan navbar
-                navbar.classList.remove('navbar-visible');
-                navbar.classList.add('navbar-hidden');
-            } else {
-                // Scroll ke atas -> tampilkan navbar
-                navbar.classList.remove('navbar-hidden');
-                navbar.classList.add('navbar-visible');
-            }
+    window.addEventListener('scroll', function () {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-        }, false);
-    </script>
+        // 🔵 Ubah transparansi navbar
+        updateNavbarBackground();
+
+        // 🔵 Deteksi arah scroll
+        if (currentScroll > lastScrollTop && currentScroll > 80) {
+            // Scroll ke bawah → sembunyikan navbar
+            navbar.classList.remove('navbar-visible');
+            navbar.classList.add('navbar-hidden');
+        } else {
+            // Scroll ke atas → tampilkan navbar
+            navbar.classList.remove('navbar-hidden');
+            navbar.classList.add('navbar-visible');
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }, false);
+</script>
+
 </body>
 </html>

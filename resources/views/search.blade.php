@@ -4,7 +4,9 @@
 
 @section('content')
 
-<div class="pt-40 max-w-5xl mx-auto px-6 mb-20">
+<div class="w-full h-23 bg-cyan-300 relative -z-10"></div>
+
+<div class="pt-10 max-w-5xl mx-auto px-6 mb-20">
 
     <h1 class="text-3xl font-bold text-cyan-600 mb-8 text-center">
         Cek Status Laporan Anda

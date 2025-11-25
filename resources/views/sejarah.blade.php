@@ -4,7 +4,10 @@
 
 @section('content')
 
-<section class="pt-40 pb-20 bg-white">
+<div class="w-full h-23 bg-cyan-300 relative -z-10"></div>
+
+<section class="pt-10 pb-20 bg-white">
+    
     <div class="max-w-6xl mx-auto px-6">
 
     <h1 class="text-4xl font-extrabold text-cyan-600 mb-10 text-center">

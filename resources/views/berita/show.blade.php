@@ -2,6 +2,8 @@
 
 @section('content')
 
+<div class="w-full h-23 bg-cyan-300 relative -z-10"></div>
+
 <div class="max-w-4xl mx-auto pt-30 py-10">
 
     {{-- Breadcrumb --}}

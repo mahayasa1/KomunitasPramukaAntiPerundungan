@@ -32,12 +32,6 @@
 
     {{-- 🔹 NAVIGATION --}}
     <nav class="flex-1 px-3 py-6 space-y-2">
-      <button 
-        @click="sidebarOpen = !sidebarOpen"
-        class="absolute -right-3 top-1/2 transform-translate-y-1/2 bg-cyan-600 text-white p-2 rounded-full flex items-center justify-center shadow-lg border border-white/30 hover:bg-cyan-500 transition duration-300 focus:outline-none">
-        <i class="fa-solid fa-chevron-left text-sm transition-transform duration-300"
-           :class="sidebarOpen ? 'rotate-0' : 'rotate-180'"></i>
-      </button>
       <template x-for="item in [
         { icon: 'fa-gauge-high', text: 'Dashboard', link: '{{ route('admin.dashboard') }}' },
         { icon: 'fa-comments', text: 'Data Aspirasi', link: '{{ route('admin.aspirasi.index') }}' },
@@ -91,13 +85,19 @@
   {{-- 🟦 HEADER --}}
   <header class="fixed top-0 left-0 right-0 bg-cyan-600 text-white z-20 h-16 flex items-center shadow-md transition-all duration-300"
           :class="sidebarOpen ? 'pl-72' : 'pl-24'">
-    <h1 class="text-2xl font-semibold">@yield('title', 'Dashboard')</h1>
+          <button 
+      @click="sidebarOpen = !sidebarOpen"
+      class="absolute align-middle top-1/ transform-translate-y-1/2  text-white flex items-center justify-center shadow-lg transition duration-300">
+      <i class="fa-solid fa-bars text- transition-transform duration-300"
+          :class="sidebarOpen ? 'rotate-0' : 'rotate-0'"></i>
+    </button>
+    <h1 class=" ml-8 text-2xl font-semibold">@yield('title', 'Dashboard')</h1>
   </header>
 
   {{-- 🟢 MAIN CONTENT --}}
   <main class="pt-20 transition-all duration-300" 
         :class="sidebarOpen ? 'ml-64' : 'ml-20'">
-    <div class="p-10">
+        <div class="p-10">
       @yield('content')
     </div>
   </main>
