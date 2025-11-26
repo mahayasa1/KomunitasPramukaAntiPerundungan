@@ -90,6 +90,53 @@ class AspirasiController extends Controller
         return back()->with('success', 'Aspirasi berhasil dikirim!');
     }
 
+    public function edit($id)
+    {
+        $aspirasi = Aspirasi::findOrFail($id);
+        return view('admin.aspirasi.edit', compact('aspirasi'));
+    }
+    
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'telp' => 'required|string',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'asal' => 'required|string',
+            'instansi' => 'required|string',
+            'lampiran' => 'nullable|file|mimes:pdf|max:2048',
+            'is_anonymous' => 'nullable|boolean',
+            'is_secret' => 'nullable|boolean'
+        ]);
+    
+        $aspirasi = Aspirasi::findOrFail($id);
+    
+        if ($request->hasFile('lampiran')) {
+        
+            if ($aspirasi->lampiran && file_exists(public_path($aspirasi->lampiran))) {
+                unlink(public_path($aspirasi->lampiran));
+            }
+        
+            $file = $request->file('lampiran');
+            $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move(public_path('uploads/lampiran'), $fileName);
+        
+            $validated['lampiran'] = 'uploads/lampiran/' . $fileName;
+        }
+    
+        $validated['is_anonymous'] = $request->boolean('is_anonymous');
+        $validated['is_secret'] = $request->boolean('is_secret');
+    
+        $aspirasi->update($validated);
+    
+        return redirect()
+            ->route('admin.aspirasi.show', $id)
+            ->with('success', 'Aspirasi berhasil diperbarui!');
+    }
+    
+
     public function destroy($id)
     {
         Aspirasi::findOrFail($id)->delete();

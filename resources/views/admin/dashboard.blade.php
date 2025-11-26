@@ -1,10 +1,10 @@
-@extends('layouts.admin')
+@extends('layouts.admin');
 
 @section('title', 'Dashboard Admin')
 
 @section('content')
   {{--  MAIN CONTENT --}}
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
     {{-- Aspirasi --}}
     <div class="bg-white shadow-md rounded-lg p-6 border-t-4 border-blue-500 flex items-center justify-between hover:shadow-lg transition duration-300">
@@ -36,6 +36,17 @@
       </div>
       <div class="bg-green-100 p-4 rounded-full">
         <i class="fa-solid fa-bullhorn text-green-600 text-4xl"></i>
+      </div>
+    </div>
+
+    {{--  Berita --}}
+    <div class="bg-white shadow-md rounded-lg p-6 border-t-4 border-yellow-500 flex items-center justify-between hover:shadow-lg transition duration-300">
+      <div>
+        <h3 class="text-lg font-semibold text-yellow-700 mb-2">Total Berita</h3>
+        <p class="text-4xl font-bold text-gray-800">{{ $totalBerita }}</p>
+      </div>
+      <div class="bg-yellow-100 p-4 rounded-full">
+        <i class="fa-solid fa-newspaper text-yellow-600 text-4xl"></i>
       </div>
     </div>
 

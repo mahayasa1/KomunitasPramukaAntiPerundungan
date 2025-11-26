@@ -14,13 +14,14 @@
         <a href="{{ route('berita.show', $item->slug) }}" 
            class="bg-white rounded shadow hover:shadow-lg transition overflow-hidden">
 
-            <img src="{{ asset('storage/' . $item->thumbnail) }}" 
-                 class="h-48 w-full object-cover">
+            <img src="{{ !empty($item->thumbnail) ? asset('storage/' . $item->thumbnail) : asset('asset/bg-aduan.jpg') }}"
+                class="h-48 w-full object-cover">
+
 
             <div class="p-4">
                 <h2 class="font-semibold text-lg">{{ $item->title }}</h2>
                 <p class="text-gray-500 text-sm mt-2">
-                    {{ Str::limit(strip_tags($item->content), 90) }}
+                    {{ Str::limit(strip_tags($item->content), 20) }}
                 </p>
             </div>
         </a>

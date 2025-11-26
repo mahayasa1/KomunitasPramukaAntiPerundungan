@@ -93,6 +93,56 @@ class PengaduanController extends Controller
         return redirect()->back()->with('success', 'Laporan berhasil dikirim!');
     }
 
+    // Edit form
+    public function edit($id)
+    {
+        $pengaduan = Pengaduan::findOrFail($id);
+        return view('admin.pengaduan.edit', compact('pengaduan'));
+    }
+    
+    // Update proses
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'telp' => 'required|string',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'tanggal_pengaduan' => 'required|date',
+            'lokasi' => 'required|string',
+            'instansi' => 'required|string',
+            'lampiran' => 'nullable|file|mimes:pdf|max:20480',
+            'is_anonymous' => 'nullable|boolean',
+            'is_secret' => 'nullable|boolean'
+        ]);
+    
+        $pengaduan = Pengaduan::findOrFail($id);
+    
+        // Upload file baru jika ada
+        if ($request->hasFile('lampiran')) {
+            if ($pengaduan->lampiran && file_exists(public_path($pengaduan->lampiran))) {
+                unlink(public_path($pengaduan->lampiran));
+            }
+        
+            $file = $request->file('lampiran');
+            $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move(public_path('uploads/lampiran'), $fileName);
+            $validated['lampiran'] = 'uploads/lampiran/' . $fileName;
+        }
+    
+        // Checkbox
+        $validated['is_anonymous'] = $request->boolean('is_anonymous');
+        $validated['is_secret'] = $request->boolean('is_secret');
+    
+        $pengaduan->update($validated);
+    
+        return redirect()
+            ->route('admin.pengaduan.show', $id)
+            ->with('success', 'Pengaduan berhasil diperbarui!');
+    }
+
+
     public function destroy($id)
     {
         Pengaduan::findOrFail($id)->delete();

@@ -104,40 +104,35 @@
             <td class="p-3 text-center">{{ $item->created_at->format('d-m-Y') }}</td>
 
               <td class="p-3 text-center">
-    <button onclick="toggleDropdown({{ $item->id }})"
-        class="px-3 py-2 bg-gray-200 rounded-lg text-sm font-semibold shadow hover:bg-gray-300 transition">
-        ⋮
-    </button>
-
-    {{-- DROPDOWN MENU --}}
-    <div id="dropdown-{{ $item->id }}"
-            class="dropdown-menu hidden fixed bg-white border border-gray-200 rounded-xl shadow-xl z-9999 w-48 overflow-hidden">
-
-            {{-- DETAIL --}}
-            <a href="{{ route('admin.aspirasi.show', $item->id) }}"
-               class="flex items-center gap-2 px-4 py-3 text-gray-700 font-medium hover:bg-blue-500 hover:text-white transition">
-                <i class="fa-solid fa-circle-info"></i><span>Detail</span>
-            </a>
-          
-            {{-- EDIT --}}
-            <a href="{{ route('admin.aspirasi.edit', $item->id) }}"
-               class="flex items-center gap-2 px-4 py-3 text-gray-700 font-medium hover:bg-amber-400 hover:text-white transition">
-                <i class="fa-solid fa-pen-to-square"></i><span>Edit</span>
-            </a>
-          
-            {{-- HAPUS --}}
-            <form action="{{ route('admin.aspirasi.destroy', $item->id) }}" method="POST"
-                  onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit"
-                    class="flex items-center gap-2 w-full text-left px-4 py-3 text-gray-700 font-medium hover:bg-red-500 hover:text-white transition">
-                    <i class="fa-solid fa-trash"></i><span>Hapus</span>
-                </button>
-            </form>
-          
-        </div>
-    </td>
+              <div class="flex items-center justify-center gap-3">
+                  {{-- DETAIL --}}
+                  <a href="{{ route('admin.aspirasi.show', $item->id) }}"
+                      class="p-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition"
+                      title="Detail">
+                      <i class="fa-solid fa-circle-info"></i>
+                  </a>
+                
+                  {{-- EDIT --}}
+                  <a href="{{ route('admin.aspirasi.edit', $item->id) }}"
+                      class="p-2 rounded-lg bg-amber-400 text-white hover:bg-amber-500 transition"
+                      title="Edit">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                
+                  {{-- HAPUS --}}
+                  <form action="{{ route('admin.aspirasi.destroy', $item->id) }}" 
+                        method="POST" 
+                        onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit"
+                          class="p-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
+                          title="Hapus">
+                          <i class="fa-solid fa-trash"></i>
+                      </button>
+                  </form>
+              </div>
+          </td>
           </tr>
         @empty
           <tr>

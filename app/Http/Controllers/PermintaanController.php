@@ -87,6 +87,54 @@ class PermintaanController extends Controller
         return back()->with('success', 'Permintaan informasi berhasil dikirim!');
     }
 
+    public function edit($id)
+    {
+        $permintaan = Permintaan::findOrFail($id);
+        return view('admin.permintaan.edit', compact('permintaan'));
+    }
+    
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'telp' => 'required|string',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'asal' => 'required|string',
+            'instansi' => 'required|string',
+            'lampiran' => 'nullable|file|mimes:pdf|max:20480',
+            'is_anonymous' => 'nullable|boolean',
+            'is_secret' => 'nullable|boolean',
+        ]);
+    
+        $permintaan = Permintaan::findOrFail($id);
+    
+        // Upload file baru jika ada
+        if ($request->hasFile('lampiran')) {
+        
+            if ($permintaan->lampiran && file_exists(public_path($permintaan->lampiran))) {
+                unlink(public_path($permintaan->lampiran));
+            }
+        
+            $file = $request->file('lampiran');
+            $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move(public_path('uploads/lampiran'), $fileName);
+        
+            $validated['lampiran'] = 'uploads/lampiran/' . $fileName;
+        }
+    
+        $validated['is_anonymous'] = $request->boolean('is_anonymous');
+        $validated['is_secret'] = $request->boolean('is_secret');
+    
+        $permintaan->update($validated);
+    
+        return redirect()
+            ->route('admin.permintaan.show', $id)
+            ->with('success', 'Permintaan informasi berhasil diperbarui!');
+    }
+
+
     public function destroy($id)
     {
         Permintaan::findOrFail($id)->delete();
