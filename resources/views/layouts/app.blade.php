@@ -22,6 +22,8 @@
 
 <body class="bg-gray-50 font-sans antialiased">
 
+    <x-aksesibilitas />
+
     <!-- 🔵 Navbar Melayang -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 bg-cyan-500/40 text-white shadow-md z-50 navbar-visible">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,12 +83,54 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-100 text-sm text-gray-500 py-4 mt-10">
-    <div class="flex items-center justify-center gap-2 px-4">
-        <img src="{{ asset('asset/logo.png') }}" class="w-55 h-8" alt="">
-        <span>Developed By SKYNUSA TECH © {{ date('Y') }}</span>
-    </div>
-</footer>
+    <footer class="bg-cyan-800 text-gray-300 py-10 mt-10">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+
+            <!-- Logo & Copyright -->
+            <div>
+                <img src="{{ asset('asset/logo.png') }}" class="h-10 mb-4" alt="Logo">
+                <p class="text-sm">Powered by © {{ date('Y') }} SKYNUSA TECH</p>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h4 class="text-lg font-semibold mb-3 text-white">Contact</h4>
+                <ul class="space-y-2 text-sm">
+                    <li>Email: support@skynusa.com</li>
+                    <li>Phone: +62 812-3456-7890</li>
+                    <li>Address: Bali, Indonesia</li>
+                </ul>
+            </div>
+
+            <!-- Customer Service -->
+            <div>
+                <h4 class="text-lg font-semibold mb-3 text-white">Customer Service</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white">FAQ</a></li>
+                    <li><a href="#" class="hover:text-white">Help Center</a></li>
+                    <li><a href="#" class="hover:text-white">Terms & Conditions</a></li>
+                    <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Blog & Social -->
+            <div>
+                <h4 class="text-lg font-semibold mb-3 text-white">Explore</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white">Blog</a></li>
+                    <li><a href="#" class="hover:text-white">News & Updates</a></li>
+                </ul>
+
+                <h4 class="text-lg font-semibold mt-5 mb-3 text-white">Follow Us</h4>
+                <div class="flex gap-4 text-xl">
+                    <a href="#" class="hover:text-white"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-white"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-white"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 <script>
     let lastScrollTop = 0;
@@ -127,6 +171,7 @@
         lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }, false);
 </script>
+
 
 </body>
 </html>

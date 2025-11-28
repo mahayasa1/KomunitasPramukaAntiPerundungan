@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Permintaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\LaporanNotification;
 
 class PermintaanController extends Controller
 {
@@ -48,7 +50,7 @@ class PermintaanController extends Controller
     return view('admin.permintaan.index', compact('permintaans'));
 }
 
-     public function show($id)
+    public function show($id)
     {
         $permintaan = Permintaan::findOrFail($id);
         return view('admin.permintaan.show', compact('permintaan'));
@@ -68,7 +70,7 @@ class PermintaanController extends Controller
             'is_secret' => 'nullable|boolean'
         ]);
 
-   if ($request->hasFile('lampiran')) {
+    if ($request->hasFile('lampiran')) {
         $file = $request->file('lampiran');
         $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
         $file->move(public_path('uploads/lampiran'), $fileName);
@@ -83,7 +85,12 @@ class PermintaanController extends Controller
         $validated['status'] = 'pending';
 
 
-        Permintaan::create($validated);
+        $permintaan = Permintaan::create($validated);
+
+        Mail::to($permintaan->email)
+        ->send(new LaporanNotification($permintaan->toArray(), 'Permintaan'));
+
+
         return back()->with('success', 'Permintaan informasi berhasil dikirim!');
     }
 
@@ -154,6 +161,10 @@ class PermintaanController extends Controller
             $permintaan->status = $steps[$currentIndex + 1];
             $permintaan->save();
         }
+
+        Mail::to($permintaan->email)
+    ->send(new LaporanNotification($permintaan->toArray(), 'Permintaan', true));
+
     
         return redirect()
             ->route('admin.permintaan.index')

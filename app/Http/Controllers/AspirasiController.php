@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Aspirasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\LaporanNotification;
 
 class AspirasiController extends Controller
 {
@@ -86,7 +88,11 @@ class AspirasiController extends Controller
 
         $validated['status'] = 'pending';
         
-        Aspirasi::create($validated);
+        $aspirasi = Aspirasi::create($validated);
+
+        Mail::to($aspirasi->email)
+            ->send(new LaporanNotification($aspirasi->toArray(), 'Aspirasi'));
+
         return back()->with('success', 'Aspirasi berhasil dikirim!');
     }
 
@@ -156,6 +162,10 @@ class AspirasiController extends Controller
             $aspirasi->status = $steps[$currentIndex + 1];
             $aspirasi->save();
         }
+
+        Mail::to($aspirasi->email)
+    ->send(new LaporanNotification($aspirasi->toArray(), 'Aspirasi', true));
+
     
         return redirect()
             ->route('admin.aspirasi.index')

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengaduan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\LaporanNotification;
 
 class PengaduanController extends Controller
 {
@@ -88,7 +90,10 @@ class PengaduanController extends Controller
         $validated['status'] = 'pending';
 
         // Simpan
-        Pengaduan::create($validated);
+        $pengaduan = Pengaduan::create($validated);
+
+        // Kirim email notifikasi
+        Mail::to($validated['email'])->send(new LaporanNotification($pengaduan->toArray(), 'Pengaduan'));
 
         return redirect()->back()->with('success', 'Laporan berhasil dikirim!');
     }
@@ -162,9 +167,14 @@ class PengaduanController extends Controller
             $pengaduan->save();
         }
     
+        Mail::to($pengaduan->email)
+        ->send(new LaporanNotification($pengaduan->toArray(), 'Pengaduan', true));
+
         return redirect()
             ->route('admin.pengaduan.index')
             ->with('success', 'Status pengaduan berhasil diperbarui!');
     }
+
+    
 
 }
