@@ -4,6 +4,13 @@
 
 @section('content')
 <div class="bg-white shadow-lg rounded-xl p-8 border-t-4 border-blue-500 max-w-5xl mx-auto">
+
+  @if(session('success'))
+    <div class="mb-4 p-3 bg-green-100 border border-green-300 text-green-800 rounded-lg">
+        {{ session('success') }}
+    </div>
+@endif
+
   <h2 class="text-2xl font-bold text-blue-600 mb-6">Edit Pengaduan</h2>
 
   <form action="{{ route('admin.pengaduan.update', $pengaduan->id) }}" 
@@ -95,7 +102,7 @@
         <i class="fa-solid fa-save mr-2"></i> Simpan Perubahan
       </button>
 
-      <a href="{{ route('admin.pengaduan.show', $pengaduan->id) }}"
+      <a href="{{ route('admin.pengaduan.index') }}"
          class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg">
         <i class="fa-solid fa-arrow-left mr-2"></i> Kembali
       </a>

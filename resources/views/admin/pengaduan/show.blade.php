@@ -4,6 +4,13 @@
 
 @section('content')
 <div class="bg-white shadow-lg rounded-xl p-8 border-t-4 border-red-500 max-w-5xl mx-auto">
+
+  @if(session('success'))
+    <div class="mb-4 p-3 bg-green-100 border border-green-300 text-green-800 rounded-lg">
+        {{ session('success') }}
+    </div>
+@endif
+
   <h2 class="text-2xl font-bold text-red-600 mb-6">Detail Pengaduan</h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4 text-gray-700">

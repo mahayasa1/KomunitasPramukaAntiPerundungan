@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="w-full h-23 bg-cyan-300 relative -z-10"></div>
+<div class="w-full h-23 bg-cyan-400 relative -z-10"></div>
 
 <div class="max-w-6xl mx-auto pt-10 pb-10">
 

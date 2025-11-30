@@ -6,6 +6,11 @@
 
 {{-- 🔶 CARD FILTER --}}
 <div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-yellow-300 mb-6">
+    @if(session('success'))
+    <div class="mb-4 p-3 bg-green-100 border border-green-300 text-green-800 rounded-lg">
+        {{ session('success') }}
+    </div>
+@endif
     <form method="GET" action="{{ route('admin.berita.index') }}">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             {{-- Keyword Search --}}

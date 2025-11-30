@@ -13,15 +13,13 @@ class PengaduanController extends Controller
     {
         $query = Pengaduan::query();
 
-        // Filter keyword
         if ($request->filled('keyword')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', "%{$request->keyword}%")
-                  ->orWhere('judul', 'like', "%{$request->keyword}%");
+                ->orWhere('judul', 'like', "%{$request->keyword}%");
             });
         }
 
-        // Filter jenis laporan
         if ($request->filled('jenis')) {
             if ($request->jenis === 'anonim') {
                 $query->where('is_anonymous', true);
@@ -32,15 +30,14 @@ class PengaduanController extends Controller
             }
         }
 
-        // Filter status
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        // Filter tanggal
         if ($request->filled('start_date')) {
             $query->whereDate('created_at', '>=', $request->start_date);
         }
+
         if ($request->filled('end_date')) {
             $query->whereDate('created_at', '<=', $request->end_date);
         }
@@ -50,14 +47,14 @@ class PengaduanController extends Controller
         return view('admin.pengaduan.index', compact('pengaduans'));
     }
 
-    // Show detail
+
     public function show($id)
     {
         $pengaduan = Pengaduan::findOrFail($id);
         return view('admin.pengaduan.show', compact('pengaduan'));
     }
 
-    // Store
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -74,7 +71,6 @@ class PengaduanController extends Controller
             'is_secret' => 'nullable|boolean'
         ]);
 
-        // Upload file
         if ($request->hasFile('lampiran')) {
             $file = $request->file('lampiran');
             $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
@@ -82,30 +78,27 @@ class PengaduanController extends Controller
             $validated['lampiran'] = 'uploads/lampiran/' . $fileName;
         }
 
-        // Checkbox
         $validated['is_anonymous'] = $request->boolean('is_anonymous');
         $validated['is_secret'] = $request->boolean('is_secret');
-
-        // Default status
         $validated['status'] = 'pending';
 
-        // Simpan
         $pengaduan = Pengaduan::create($validated);
 
-        // Kirim email notifikasi
         Mail::to($validated['email'])->send(new LaporanNotification($pengaduan->toArray(), 'Pengaduan'));
 
         return redirect()->back()->with('success', 'Laporan berhasil dikirim!');
     }
 
-    // Edit form
+
     public function edit($id)
     {
+        session()->flash('info', 'Halaman edit pengaduan dibuka.');
+
         $pengaduan = Pengaduan::findOrFail($id);
         return view('admin.pengaduan.edit', compact('pengaduan'));
     }
-    
-    // Update proses
+
+
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
@@ -121,27 +114,25 @@ class PengaduanController extends Controller
             'is_anonymous' => 'nullable|boolean',
             'is_secret' => 'nullable|boolean'
         ]);
-    
+
         $pengaduan = Pengaduan::findOrFail($id);
-    
-        // Upload file baru jika ada
+
         if ($request->hasFile('lampiran')) {
             if ($pengaduan->lampiran && file_exists(public_path($pengaduan->lampiran))) {
                 unlink(public_path($pengaduan->lampiran));
             }
-        
+
             $file = $request->file('lampiran');
             $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
             $file->move(public_path('uploads/lampiran'), $fileName);
             $validated['lampiran'] = 'uploads/lampiran/' . $fileName;
         }
-    
-        // Checkbox
+
         $validated['is_anonymous'] = $request->boolean('is_anonymous');
         $validated['is_secret'] = $request->boolean('is_secret');
-    
+
         $pengaduan->update($validated);
-    
+
         return redirect()
             ->route('admin.pengaduan.show', $id)
             ->with('success', 'Pengaduan berhasil diperbarui!');
@@ -151,30 +142,29 @@ class PengaduanController extends Controller
     public function destroy($id)
     {
         Pengaduan::findOrFail($id)->delete();
+
         return back()->with('success', 'Pengaduan berhasil dihapus');
     }
 
-     public function updateStatusFromDetail($id)
+
+    public function updateStatusFromDetail($id)
     {
         $pengaduan = Pengaduan::findOrFail($id);
-    
+
         $steps = ['pending', 'verification', 'follow-up', 'feedback', 'finish'];
-    
+
         $currentIndex = array_search($pengaduan->status, $steps);
-    
+
         if ($currentIndex !== false && $currentIndex < count($steps) - 1) {
             $pengaduan->status = $steps[$currentIndex + 1];
             $pengaduan->save();
         }
-    
+
         Mail::to($pengaduan->email)
-        ->send(new LaporanNotification($pengaduan->toArray(), 'Pengaduan', true));
+            ->send(new LaporanNotification($pengaduan->toArray(), 'Pengaduan', true));
 
         return redirect()
             ->route('admin.pengaduan.index')
             ->with('success', 'Status pengaduan berhasil diperbarui!');
     }
-
-    
-
 }

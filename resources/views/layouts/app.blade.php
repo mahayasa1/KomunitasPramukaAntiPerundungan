@@ -21,12 +21,12 @@
 </head>
 
 <body class="bg-gray-50 font-sans antialiased">
-
     <x-aksesibilitas />
+    
 
     <!-- 🔵 Navbar Melayang -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 bg-cyan-500/40 text-white shadow-md z-50 navbar-visible">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-23 w-full">
                 <!-- Logo -->
             <div class="flex items-center space-x-8 shrink-0">
@@ -41,25 +41,25 @@
                 <div class="hidden md:flex space-x-2">
                     <a href="{{ route('about') }}"
                         class="text-sm font-semibold px-3 py-1 rounded
-                                {{ Request::routeIs('about') ? 'bg-cyan-300 text-white' : 'hover:text-gray-200 text-white' }}">
+                                {{ Request::routeIs('about') ? 'bg-cyan-400 text-white' : 'hover:text-white text-gray-100' }}">
                         TENTANG
                     </a>
                 
                     <a href="{{ route('sejarah') }}"
                         class="text-sm font-semibold px-3 py-1 rounded
-                                {{ Request::routeIs('sejarah') ? 'bg-cyan-300 text-white' : 'hover:text-gray-200 text-white' }}">
+                                {{ Request::routeIs('sejarah') ? 'bg-cyan-400 text-white' : 'hover:text-white text-gray-100' }}">
                         SEJARAH
                     </a>
                 
                     <a href="{{ route('search.index') }}"
                         class="text-sm font-semibold px-3 py-1 rounded
-                                {{ Request::routeIs('search.index') ? 'bg-cyan-300 text-white' : 'hover:text-gray-200 text-white' }}">
+                                {{ Request::routeIs('search.index') ? 'bg-cyan-400 text-white' : 'hover:text-white text-gray-100' }}">
                         CARI
                     </a>
                 
                     <a href="{{ route('berita.index') }}"
                         class="text-sm font-semibold px-3 py-1 rounded
-                                {{ Request::routeIs('berita.index') ? 'bg-cyan-300 text-white' : 'hover:text-gray-200 text-white' }}">
+                                {{ Request::routeIs('berita.index') ? 'bg-cyan-400 text-white' : 'hover:text-white text-gray-100' }}">
                         BERITA
                     </a>
                 
@@ -67,7 +67,7 @@
             </div>
 
                 <!-- Tombol kanan -->
-                <div class="flex items-center space-x-4 shrink-0 ml-aut">
+                <div class="flex items-center space-x-6 ">
                     <a href="{{ route('login') }}" class="border border-white text-sm font-semibold px-4 py-1 rounded hover:bg-white hover:text-cyan-500 transition">
                         <span>MASUK</span>
                     </a>
@@ -84,7 +84,7 @@
 
     <!-- Footer -->
     <footer class="bg-cyan-800 text-gray-300 py-10 mt-10">
-        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
 
             <!-- Logo & Copyright -->
             <div>

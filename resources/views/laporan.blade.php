@@ -23,10 +23,10 @@
     <h1 class="text-4xl md:text-5xl font-extrabold leading-tight drop-shadow-lg">
       Layanan Aspirasi dan Pengaduan Online Rakyat
     </h1>
-    <p class="mt-4 text-lg md:text-xl text-gray-100 drop-shadow">
+    <h2 class="mt-4 text-lg md:text-3xl font-bold text-white drop-shadow">
       Sampaikan laporan Anda langsung kepada Kami
-    </p>
-    <div class="w-24 h-1 bg-white mx-auto mt-6 rounded-full"></div>
+    </h2>
+    <div class="w-52 h-1 bg-white mx-auto mt-6 rounded-full"></div>
 
     {{-- Tombol Mulai --}}
     <div class="mt-12 flex justify-center">

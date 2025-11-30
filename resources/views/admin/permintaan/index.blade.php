@@ -5,6 +5,11 @@
 @section('content')
 
   <div class="bg-white shadow-lg rounded-xl p-6 border-t-4 border-green-500 mb-6">
+      @if(session('success'))
+    <div class="mb-4 p-3 bg-green-100 border border-green-300 text-green-800 rounded-lg">
+        {{ session('success') }}
+    </div>
+@endif
     <form method="GET" action="{{ route('admin.permintaan.index') }}" class="mb-6">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
 
@@ -47,11 +52,11 @@
         <label for="status" class="block text-sm font-semibold text-gray-700 mb-1"> Status </label>
         <select name="status" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm">
             <option hidden value="">-- Status --</option>
-            <option value="pending">Pending</option>
-            <option value="verification">Verification</option>
-            <option value="follow-up">Follow Up</option>
-            <option value="feedback">Feedback</option>
-            <option value="finish">Finish</option>
+            <option value="pending"      {{ request('status')=='pending' ? 'selected' : '' }}>Pending</option>
+            <option value="verification" {{ request('status')=='verification' ? 'selected' : '' }}>Verification</option>
+            <option value="follow-up"    {{ request('status')=='follow-up' ? 'selected' : '' }}>Follow Up</option>
+            <option value="feedback"     {{ request('status')=='feedback' ? 'selected' : '' }}>Feedback</option>
+            <option value="finish"       {{ request('status')=='finish' ? 'selected' : '' }}>Finish</option>
         </select>
       </div>
     </div>

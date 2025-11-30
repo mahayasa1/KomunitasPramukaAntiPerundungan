@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="w-full h-23 bg-cyan-300 relative -z-10"></div>
+<div class="w-full h-23 bg-cyan-400 relative -z-10"></div>
 
 <div class="pt-10 max-w-5xl mx-auto px-6 mb-20">
 
