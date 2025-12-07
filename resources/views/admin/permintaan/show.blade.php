@@ -76,9 +76,10 @@
     <form action="{{ route('admin.permintaan.updateStatus', $permintaan->id) }}" method="POST">
         @csrf
         <button type="submit"
+            onclick="confirmUpdate({{ $permintaan->id }})"
             class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow">
           <i class="fa-solid fa-circle-arrow-up mr-2"></i> <span> Update Status </span>
-        </button>
+      </button>
     </form>
 
     {{-- Kembali ke index --}}
@@ -90,3 +91,22 @@
 </div>
 </div>
 @endsection
+
+<script>
+function confirmUpdate(id) {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Status permintaan akan diperbarui.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, perbarui!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('updateStatusForm-' + id).submit();
+        }
+    });
+}
+</script>

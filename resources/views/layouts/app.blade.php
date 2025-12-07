@@ -41,7 +41,7 @@
                 <div class="hidden md:flex space-x-2">
                     <a href="{{ route('about') }}"
                         class="text-sm font-semibold px-3 py-1 rounded
-                                {{ Request::routeIs('about') ? 'bg-cyan-400 text-white' : 'hover:text-white text-gray-100' }}">
+                                {{ Request::routeIs('about') ? 'bg-cyan-400 text-white border-amber-200' : 'hover:text-white text-gray-100' }}">
                         TENTANG
                     </a>
                 
@@ -96,9 +96,9 @@
             <div>
                 <h4 class="text-lg font-semibold mb-3 text-white">Contact</h4>
                 <ul class="space-y-2 text-sm">
-                    <li>Email: support@skynusa.com</li>
+                    <li>Email: Pramukagercep@gmail.com</li>
                     <li>Phone: +62 812-3456-7890</li>
-                    <li>Address: Bali, Indonesia</li>
+                    <li>Address: Jl. Tantular No.11, Dangin Puri Klod, Kec. Denpasar Tim., Kota Denpasar, Bali</li>
                 </ul>
             </div>
 
@@ -117,7 +117,7 @@
             <div>
                 <h4 class="text-lg font-semibold mb-3 text-white">Explore</h4>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="#" class="hover:text-white">Blog</a></li>
+                    <li><a href="{{ route('berita.index') }}" class="hover:text-white">Blog</a></li>
                     <li><a href="#" class="hover:text-white">News & Updates</a></li>
                 </ul>
 

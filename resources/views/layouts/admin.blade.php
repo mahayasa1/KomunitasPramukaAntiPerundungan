@@ -9,10 +9,14 @@
   <link rel="stylesheet" href="https://unpkg.com/trix/dist/trix.css">
   <script src="https://unpkg.com/trix/dist/trix.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   @vite('resources/css/app.css')
 </head>
+<style>
 
-<body class="bg-gray-100 font-sans antialiased" x-data="{ sidebarOpen: true }">
+  [x-cloak]{display:none !important}
+</style>
+<body class="bg-gray-100 font-sans antialiased" x-data="{ sidebarOpen: true }" x-cloak>
 
   {{-- 🧭 SIDEBAR --}}
   <aside 

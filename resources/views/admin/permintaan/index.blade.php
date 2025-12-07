@@ -125,15 +125,15 @@
                   </a>
                 
                   {{-- HAPUS --}}
-                  <form action="{{ route('admin.permintaan.destroy', $item->id) }}" 
-                        method="POST" 
-                        onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                  <form id="deleteForm-{{ $item->id }}" 
+                        action="{{ route('admin.permintaan.destroy', $item->id) }}" 
+                        method="POST">
                       @csrf
                       @method('DELETE')
-                      <button type="submit"
-                          class="p-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
-                          title="Hapus">
-                          <i class="fa-solid fa-trash"></i>
+                      <button type="button"
+                          onclick="confirmDelete({{ $item->id }})"
+                          class="bg-red-600 hover:bg-red-700 text-white p-2 rounded-lg transition" title="Delete">
+                        <i class="fa-solid fa-trash"></i>
                       </button>
                   </form>
               </div>
@@ -171,5 +171,38 @@ function toggleDropdown(id) {
       el.style.top = (rect.bottom + 5) + "px";
       el.style.left = (rect.left - 120) + "px";
   }
+}
+
+function confirmDelete(id) {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        html: `
+            <p class="text-gray-600">Data yang dihapus tidak dapat dikembalikan!</p>
+            <p class="text-sm text-red-500 mt-2">Tindakan ini bersifat permanen.</p>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DC2626',
+        cancelButtonColor: '#6B7280',
+        confirmButtonText: '<i class="fa-solid fa-check mr-1"></i> Ya, Hapus!',
+        cancelButtonText: '<i class="fa-solid fa-xmark mr-1"></i> Batal',
+        reverseButtons: true,
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Tampilkan loading
+            Swal.fire({
+                title: 'Menghapus...',
+                text: 'Mohon tunggu',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            
+            // Submit form
+            document.getElementById('deleteForm-' + id).submit();
+        }
+    });
 }
 </script>

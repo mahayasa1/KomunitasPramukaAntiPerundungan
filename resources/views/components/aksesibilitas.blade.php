@@ -33,6 +33,7 @@
         x-show="open"
         x-transition
         x-cloak
+        @click.outside="open = false"
         class="fixed top-0 right-0 w-96 h-full bg-white shadow-2xl border-l border-gray-200 flex flex-col"
     >
         <div class="flex items-center justify-between p-4 bg-cyan-900 text-white">
@@ -40,7 +41,31 @@
             <button @click="open = false" class="text-xl">✕</button>
         </div>
 
+        <script>
+        document.addEventListener('click', function(e) {
+            const panel = document.querySelector('[x-data="accessibilityMenu()"] > div[x-show]');
+            const toggleBtn = document.querySelector('[x-data="accessibilityMenu()"] button');
+            if (!panel) return;
+            if (!panel.contains(e.target) && !toggleBtn.contains(e.target)) {
+                const alpine = document.querySelector('[x-data="accessibilityMenu()"]');
+                if (alpine.__x) alpine.__x.$data.open = false;
+            }
+        });
+        </script>
+
         <div class="p-4 space-y-10 overflow-y-auto flex-1">
+
+            {{-- ========== ADHD MODE ========== --}}
+
+            <div>
+                <h3 class="font-semibold text-lg text-cyan-900 mb-2">ADHD Mode</h3>
+                <div class="grid grid-cols-1 gap-3 text-center">
+                    <button class="btn border p-3 rounded" :class="adhdActive ? 'active-btn' : ''" @click="ADHD()">
+                        <i class="fa-solid fa-brain"></i>
+                        <span class="text-xs block mt-1">Enable</span>
+                    </button>
+                </div>
+            </div>
 
             <!-- ========== FONT SIZE ========== -->
             <div>
@@ -178,17 +203,7 @@
             </div>
 
             <!-- ========== HOVER TOOLTIP ========== -->
-            <div>
-                <h3 class="font-semibold text-lg text-cyan-900 mb-2">Hover Description</h3>
-                <div class="grid grid-cols-1 gap-3 text-center">
-
-                    <button class="btn border p-3 rounded" :class="assist.hover ? 'active-btn' : ''" @click="assist.hoverOn()">
-                        <i class="fa-solid fa-comment"></i>
-                        <span class="text-xs block mt-1">Enable</span>
-                    </button>
-
-                </div>
-            </div>
+            
 
             <!-- RESET -->
             <button class="w-full py-3 bg-cyan-600 text-white rounded-lg hover:bg-cyan-500">
@@ -247,6 +262,36 @@ function accessibilityMenu() {
 
         open: false,
         showFloating: false,
+        adhdActive: false,
+
+        /* ADHD MODE */
+        ADHD() {
+            this.adhdActive = !this.adhdActive;
+
+                const mask = document.getElementById("readingMask");
+                const dimmer = document.getElementById("bgDimmer");
+
+                if (this.adhdActive) {
+                    dimmer.style.display = "block";
+                    mask.style.display = "block";
+                    
+                    
+                    window.onmousemove = (e) => {
+                        mask.style.top = (e.clientY - 35) + "px";
+                    };
+
+                    document.documentElement.style.filter = "saturate(40%)";
+
+                } else {
+                dimmer.style.display = "none";
+                mask.style.display = "none";
+                window.onmousemove = null;
+                
+                
+                document.documentElement.style.filter = "none";
+            }
+        },
+
 
         /* FONT MODULE */
         font: {

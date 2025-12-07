@@ -97,12 +97,13 @@
                             </a>
 
                             {{-- HAPUS --}}
-                            <form action="{{ route('admin.berita.destroy', $item->id) }}" 
-                                method="POST" 
-                                onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            <form id="deleteForm-{{ $item->id }}" 
+                                action="{{ route('admin.berita.destroy', $item->id) }}" 
+                                method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"
+                                <button type="button"
+                                    onclick="confirmDelete({{ $item->id }})"
                                     class="p-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
                                     title="Hapus">
                                     <i class="fa-solid fa-trash"></i>
@@ -121,35 +122,41 @@
         {{ $berita->links() }}
     </div>
 </div>
-{{-- 🔶 ALERT POPUP MODAL --}}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if(session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Sukses!',
-        text: "{{ session('success') }}",
-        timer: 2500,
-        showConfirmButton: false,
-    });
-</script>
-@endif
-
-@if($errors->any())
-<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Terjadi Kesalahan!',
-        html: `
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        `,
-        showConfirmButton: true,
-    });
-</script>
-@endif
-
 
 @endsection
+
+
+<script>
+    function confirmDelete(id) {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        html: `
+            <p class="text-gray-600">Data yang dihapus tidak dapat dikembalikan!</p>
+            <p class="text-sm text-red-500 mt-2">Tindakan ini bersifat permanen.</p>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DC2626',
+        cancelButtonColor: '#6B7280',
+        confirmButtonText: '<i class="fa-solid fa-check mr-1"></i> Ya, Hapus!',
+        cancelButtonText: '<i class="fa-solid fa-xmark mr-1"></i> Batal',
+        reverseButtons: true,
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Tampilkan loading
+            Swal.fire({
+                title: 'Menghapus...',
+                text: 'Mohon tunggu',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            
+            // Submit form
+            document.getElementById('deleteForm-' + id).submit();
+        }
+    });
+}
+</script>

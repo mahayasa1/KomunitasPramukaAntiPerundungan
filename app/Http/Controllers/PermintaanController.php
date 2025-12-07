@@ -168,6 +168,6 @@ class PermintaanController extends Controller
     
         return redirect()
             ->route('admin.permintaan.index')
-            ->with('success', 'Status permintaan berhasil diperbarui!');
+            ->with('success', 'Status permintaan berhasil diperbarui menjadi ' . $permintaan->status . '!');
     }
 }

@@ -169,7 +169,7 @@ class AspirasiController extends Controller
     
         return redirect()
             ->route('admin.aspirasi.index')
-            ->with('success', 'Status aspirasi berhasil diperbarui!');
+            ->with('success', 'Status aspirasi berhasil diperbarui menjadi ' . $aspirasi->status . '!');
     }
 
 }

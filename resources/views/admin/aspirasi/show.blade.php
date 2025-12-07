@@ -73,9 +73,10 @@
   <div class="mt-8 flex justify-between">
 
     {{-- Tombol Update Status --}}
-    <form action="{{ route('admin.aspirasi.updateStatus', $aspirasi->id) }}" method="POST">
+    <form id="updateStatusForm-{{ $aspirasi->id }}" action="{{ route('admin.aspirasi.updateStatus', $aspirasi->id) }}" method="POST">
         @csrf
-        <button type="submit"
+        <button type="button"
+            onclick="confirmUpdate({{ $aspirasi->id }})"
             class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow">
           <i class="fa-solid fa-circle-arrow-up mr-2"></i> <span> Update Status </span>
         </button>
@@ -90,3 +91,22 @@
 </div>
 </div>
 @endsection
+
+<script>
+function confirmUpdate(id) {
+    Swal.fire({
+        title: 'Konfirmasi Update',
+        text: "Apakah Anda yakin ingin mengupdate status aspirasi ini?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#4F46E5',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Update!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('updateStatusForm-' + id).submit();
+        }
+    });
+}
+</script>  

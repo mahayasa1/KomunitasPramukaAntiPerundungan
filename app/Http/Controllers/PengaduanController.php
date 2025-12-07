@@ -165,6 +165,6 @@ class PengaduanController extends Controller
 
         return redirect()
             ->route('admin.pengaduan.index')
-            ->with('success', 'Status pengaduan berhasil diperbarui!');
+            ->with('success', 'Status pengaduan berhasil diperbarui menjadi ' . $pengaduan->status . '!');
     }
 }
