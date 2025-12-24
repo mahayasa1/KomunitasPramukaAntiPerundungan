@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Layanan Aspirasi dan Pengaduan')
+@section('title', 'Komunitas Pramuka Anti Perundungan')
 
 @section('content')
 {{-- 🟦 HERO SECTION --}}
